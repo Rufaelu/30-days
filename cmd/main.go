@@ -11,7 +11,7 @@ func main() {
 	e := echo.New()
 	e.GET("/books", func(e echo.Context) error {
 
-		return (e.JSON(http.StatusAccepted, "Ok"))
+		return (e.JSON(http.StatusAccepted, "Ok "))
 	})
 
 	e.Start(":8080")
