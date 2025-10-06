@@ -1,18 +1,11 @@
 package main
 
 import (
-	"net/http"
-
-	"github.com/labstack/echo/v4"
+	"30days/routes"
 )
 
 func main() {
-
-	e := echo.New()
-	e.GET("/books", func(e echo.Context) error {
-
-		return (e.JSON(http.StatusAccepted, "Ok "))
-	})
+	e := routes.NewRoute()
 
 	e.Start(":8080")
 
