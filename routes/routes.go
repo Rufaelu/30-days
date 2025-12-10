@@ -1,6 +1,8 @@
 package routes
 
 import (
+	"30days/models"
+	"context"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -8,9 +10,21 @@ import (
 
 func NewRoute() *echo.Echo {
 	e := echo.New()
-	e.GET("/books", func(e echo.Context) error {
 
-		return (e.JSON(http.StatusAccepted, "Ok "))
+	e.GET("/create", func(e echo.Context) error {
+		conn, err := models.Connect()
+		if err != nil {
+			return (e.JSON(http.StatusBadRequest, err.Error()))
+
+		}
+		err = models.CreateDB("Mine", conn)
+		if err != nil {
+			return (e.JSON(http.StatusBadRequest, err.Error()))
+
+		}
+		defer conn.Close(context.Background())
+
+		return (e.JSON(http.StatusAccepted, "Done"))
 	})
 
 	return e
